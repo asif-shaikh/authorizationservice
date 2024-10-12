@@ -24,9 +24,6 @@ public partial class User
     [StringLength(128)]
     public string WindowsDomain { get; set; } = null!;
 
-    [StringLength(128)]
-    public string HashedPassword { get; set; } = null!;
-
     public bool IsActive { get; set; }
 
     public bool IsDisabled { get; set; }
