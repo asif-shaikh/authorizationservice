@@ -54,7 +54,7 @@ public class OrganizationController : ControllerBase, IOrganizationController
     /// </returns>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(OrganizationDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<OrganizationDto>> GetOrganizationAsync(int id)
     {
         var organization = await _service.GetOrganizationAsync(id);

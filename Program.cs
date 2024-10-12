@@ -1,22 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Ocorpus.AuthorizationService.Middlewares;
 using OCorpus.AuthorizationService.Contexts;
+using OCorpus.AuthorizationService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddDbContext<OCorpusDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("OCorpusDbContext"))
-);
-
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "OCorpus API", Version = "v1" });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "OCorpus.AuthorizationService.xml"));
-});
-
 builder.Services.AddControllers();
+builder.Services.AddSwagger();
+builder.Services.AddDbContext(builder.Configuration);
+builder.Services.AddServices();
 
 var app = builder.Build();
 
@@ -27,11 +21,11 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseRouting();
 app.UseAuthorization();
-
 app.MapControllers();
-
 
 app.Run();
 
