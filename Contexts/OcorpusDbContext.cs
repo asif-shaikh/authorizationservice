@@ -5,9 +5,18 @@ using OCorpus.AuthorizationService.Models.DataModels;
 
 namespace OCorpus.AuthorizationService.Contexts;
 
-public partial class OcorpusDbContext : DbContext
+/// <summary>
+/// OCorpus database context
+/// </summary>
+public partial class OCorpusDbContext : DbContext
 {
-    public OcorpusDbContext(DbContextOptions<OcorpusDbContext> options)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OCorpusDbContext"/> class.
+    /// </summary>
+    /// <param name="options">
+    /// The options used to configure the context.
+    /// </param>
+    public OCorpusDbContext(DbContextOptions<OCorpusDbContext> options)
         : base(options)
     {
     }
